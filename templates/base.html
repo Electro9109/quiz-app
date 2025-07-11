@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Quiz App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <h1><a href="{{ url_for('home') }}">Quiz App</a></h1>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            {% if session.username %}
+                <a href="{{ url_for('show_current_score') }}">Show Score</a>
+            {% endif %}
+            <a href="{{ url_for('add_question') }}">Add Question</a>
+        </div>
+    </nav>
+    
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

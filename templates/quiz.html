@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz - Question{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="quiz-header">
+        <h2>Question {{ session.question_count + 1 }}</h2>
+        <div class="quiz-controls">
+            <span class="current-score">Current Score: {{ session.score }}/{{ session.question_count }}</span>
+            <a href="{{ url_for('show_current_score') }}" class="btn-exit">Show Final Score</a>
+        </div>
+    </div>
+    
+    <div class="question-box">
+        <p class="question">{{ question.question }}</p>
+        
+        <form method="POST" action="{{ url_for('submit_answer') }}">
+            <div class="form-group">
+                <input type="text" name="answer" placeholder="Your answer..." required autofocus>
+            </div>
+            <div class="quiz-actions">
+                <button type="submit" class="btn-primary">Submit Answer</button>
+                <a href="{{ url_for('show_current_score') }}" class="btn-secondary">End Quiz Now</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
